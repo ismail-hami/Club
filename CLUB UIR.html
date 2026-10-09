@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A2A5E">
+<meta name="description" content="Portail officiel du club UIR Nutrition, initié par les étudiants du Master 2 en Nutrition Clinique de l’Université Internationale de Rabat.">
+<title>UIR Nutrition – Portail officiel du club</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🥗</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Newsreader:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config={theme:{extend:{
+  fontFamily:{sans:['Figtree','system-ui','sans-serif'],display:['Newsreader','Georgia','serif']},
+  colors:{navy:{DEFAULT:'#0A2A5E',700:'#123A7C',900:'#061A3F'},vita:{DEFAULT:'#15803D',400:'#4ADE80',50:'#EEF9F2',100:'#D3F0DE'}},
+  boxShadow:{soft:'0 12px 32px -16px rgba(10,42,94,.35)',lift:'0 24px 48px -20px rgba(10,42,94,.5)'}
+}}};
+/* Image introuvable (logo, photo) : on affiche un emplacement de remplacement */
+function fb(i,c){const s=document.createElement('span');s.className=c;s.textContent=i.dataset.t;i.replaceWith(s)}
+</script>
+<style type="text/tailwindcss">
+@layer components{
+  .ph-logo{@apply grid h-14 w-40 max-w-[46%] place-items-center rounded-xl border border-dashed border-navy/30 bg-slate-50 px-3 text-center text-xs font-semibold leading-tight text-navy/50}
+  .av{@apply mx-auto h-24 w-24 rounded-full ring-4 ring-vita-100 sm:h-28 sm:w-28}
+  .ph-av{@apply grid place-items-center bg-gradient-to-br from-navy to-navy-700 font-display text-3xl font-semibold text-white}
+  .cardx{@apply rounded-3xl bg-white shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1.5 hover:shadow-lift}
+  .tab{@apply block rounded-full px-4 py-2 text-sm font-semibold text-navy/70 transition hover:text-navy sm:px-6}
+  .fld{@apply mt-2 block w-full rounded-xl border border-slate-300 bg-white px-4 py-3.5 text-base font-normal text-slate-800 shadow-sm transition placeholder:text-slate-400 hover:border-slate-400 focus:border-vita focus:outline-none focus:ring-4 focus:ring-vita-400/25}
+}
+</style>
+<style>
+@keyframes up{from{opacity:0;translate:0 16px}to{opacity:1;translate:0 0}}
+.in1{animation:up .7s .05s both}.in2{animation:up .7s .2s both}.in3{animation:up .8s .35s both}
+.dots{background-image:radial-gradient(rgba(255,255,255,.1) 1px,transparent 1px);background-size:22px 22px}
+nav a[aria-current],nav a[aria-current]:hover{background:#0A2A5E;color:#fff;box-shadow:0 4px 12px -4px rgba(10,42,94,.5)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="bg-slate-50 font-sans text-base text-slate-700 antialiased">
+
+<header class="bg-white">
+  <div class="h-1.5 bg-gradient-to-r from-navy via-navy-700 to-vita-400"></div>
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+    <!-- Logos (160 × 56 px) : déposez les fichiers dans /assets ou modifiez src -->
+    <img src="assets/logo-uir.png" alt="Logo UIR" width="160" height="100" class="h-14 w-40 max-w-[46%] object-contain object-left" data-t="Logo UIR" onerror="fb(this,'ph-logo')">
+    <img src="assets/logo-uir-nutrition.png" alt="Logo UIR Nutrition" width="160" height="100" class="h-14 w-40 max-w-[46%] object-contain object-right" data-t="Logo UIR Nutrition" onerror="fb(this,'ph-logo')">
+  </div>
+</header>
+
+<nav aria-label="Navigation principale" class="sticky top-0 z-40 border-b border-navy/10 bg-white/85 backdrop-blur-md">
+  <ul class="mx-auto my-2 flex w-fit max-w-full gap-1 rounded-full bg-slate-100 p-1">
+    <li><a href="#accueil" aria-current="page" class="tab">Accueil</a></li>
+    <li><a href="#conseils" class="tab">Conseils</a></li>
+    <li><a href="#rejoignez-nous" class="tab">Rejoignez-nous</a></li>
+  </ul>
+</nav>
+
+<main>
+
+<!-- ACCUEIL -->
+<section id="accueil" class="scroll-mt-16">
+  <div class="relative isolate overflow-hidden rounded-b-[2.5rem] bg-gradient-to-br from-navy-900 via-navy to-navy-700 text-white md:rounded-b-[4rem]">
+    <div class="dots absolute inset-0 -z-10"></div>
+    <div class="absolute -right-32 top-10 -z-10 h-96 w-96 rounded-full bg-vita/30 blur-3xl"></div>
+    <div class="mx-auto grid max-w-6xl items-center gap-14 px-5 py-16 sm:px-6 lg:grid-cols-12 lg:py-28">
+      <div class="lg:col-span-7">
+        <h1 class="in1 font-display text-4xl font-semibold leading-[1.1] sm:text-5xl lg:text-6xl">Bienvenue sur le portail officiel du club UIR Nutrition</h1>
+        <p class="in2 mt-7 max-w-2xl text-lg leading-relaxed text-white/80">Initié par les étudiants du Master 2 en Nutrition Clinique, notre club s’engage à promouvoir la santé, le bien-être et l’éducation nutritionnelle au sein de l’Université Internationale de Rabat. En synergie avec les clubs sportifs, nous accompagnons les étudiants vers un mode de vie sain, tout en menant une réflexion continentale sur les enjeux de la sécurité alimentaire en Afrique.</p>
+        <div class="in2 mt-9 flex flex-col gap-3 sm:flex-row">
+          <a href="#missions" class="rounded-full bg-vita-400 px-7 py-3.5 text-center font-bold text-navy-900 shadow-lg shadow-vita-400/20 transition hover:-translate-y-0.5 hover:bg-white">Découvrir nos missions</a>
+          <a href="#bureau" class="rounded-full px-7 py-3.5 text-center font-bold ring-1 ring-white/40 transition hover:-translate-y-0.5 hover:bg-white/10">Rencontrer l’équipe</a>
+        </div>
+      </div>
+      <!-- PHOTO : ajoutez dans le bloc clair <img src="assets/equipe.jpg" alt="L’équipe UIR Nutrition" class="absolute inset-0 h-full w-full object-cover"> -->
+      <figure class="in3 relative mx-auto w-full max-w-md lg:col-span-5 lg:max-w-none">
+        <div class="absolute inset-0 translate-x-3 translate-y-3 rounded-[2rem] bg-vita-400/20 ring-1 ring-vita-400/40"></div>
+        <div class="relative aspect-[5/4] overflow-hidden rounded-[2rem] bg-gradient-to-br from-vita-50 via-white to-sky-100 shadow-2xl lg:aspect-[4/5]">
+          <div class="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-vita-400/25"></div>
+          <div class="absolute -bottom-20 -left-12 h-64 w-64 rounded-full bg-navy/10"></div>
+        </div>
+        <figcaption class="absolute inset-x-4 bottom-4 rounded-2xl bg-white/95 p-4 shadow-lg backdrop-blur">
+          <p class="font-display text-lg font-semibold text-navy">L’équipe UIR Nutrition sur le campus</p>
+          <p class="text-sm text-slate-500">Université Internationale de Rabat</p>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div id="missions" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:px-6 md:py-28">
+    <h2 class="font-display text-3xl font-semibold text-navy sm:text-5xl">Nos Missions &amp; Nos Engagements</h2>
+    <p class="mt-4 max-w-2xl text-lg text-slate-600">Trois axes d’action pour la santé, le bien-être et l’éducation nutritionnelle de la communauté universitaire.</p>
+    <div id="missionGrid" class="mt-12 grid gap-6 md:grid-cols-3"></div>
+  </div>
+
+  <div id="bureau" class="scroll-mt-20 bg-vita-50 px-5 py-20 sm:px-6 md:py-28">
+    <div class="mx-auto max-w-6xl">
+      <h2 class="font-display text-3xl font-semibold text-navy sm:text-5xl">Le Bureau Exécutif &amp; Mentorat</h2>
+      <p class="mt-4 max-w-2xl text-lg text-slate-600">Les étudiants qui animent le club et l’enseignante qui les accompagne.</p>
+      <ul id="team" class="mt-12 grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-3"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONSEILS -->
+<section id="conseils" class="scroll-mt-16 bg-white px-5 py-20 sm:px-6 md:py-28">
+  <div class="mx-auto max-w-6xl">
+    <h2 class="font-display text-3xl font-semibold text-navy sm:text-5xl">Conseils</h2>
+    <p class="mt-4 max-w-2xl text-lg text-slate-600">Des fiches pratiques pour mieux manger, mieux bouger et prendre soin de sa santé au quotidien.</p>
+    <div id="tipGrid" class="mt-12 grid gap-6 md:grid-cols-3"></div>
+  </div>
+</section>
+
+<!-- REJOIGNEZ-NOUS -->
+<section id="rejoignez-nous" class="scroll-mt-16 px-5 py-20 sm:px-6 md:py-28">
+  <div class="mx-auto grid max-w-6xl gap-8 lg:grid-cols-5">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-900 to-navy p-8 text-white sm:p-10 lg:col-span-2">
+      <div class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-vita/40 blur-3xl"></div>
+      <h2 class="relative font-display text-3xl font-semibold sm:text-4xl">Rejoignez-nous</h2>
+      <p class="relative mt-4 leading-relaxed text-white/80">Une question, une idée ou l’envie de rejoindre le club ? Écrivez-nous.</p>
+      <ul class="relative mt-8 list-disc space-y-2 pl-5 text-white/90 marker:text-vita-400">
+        <li>Rejoindre l’équipe du club</li><li>Proposer une idée ou une collaboration</li><li>Poser une question</li>
+      </ul>
+    </div>
+    <!-- À REMPLACER : action = URL de votre service de formulaire (ex. Formspree). Sans cela, rien n’est envoyé. -->
+    <form data-send class="grid gap-5 rounded-3xl bg-white p-6 shadow-soft ring-1 ring-navy/5 sm:grid-cols-2 sm:p-10 lg:col-span-3">
+      <label class="block text-sm font-semibold text-navy">Nom<input name="nom" type="text" required autocomplete="family-name" placeholder="Votre nom" class="fld"></label>
+      <label class="block text-sm font-semibold text-navy">Prénom<input name="prenom" type="text" required autocomplete="given-name" placeholder="Votre prénom" class="fld"></label>
+      <label class="block text-sm font-semibold text-navy sm:col-span-2">Email<input name="email" type="email" required autocomplete="email" placeholder="vous@exemple.com" class="fld"></label>
+      <label class="block text-sm font-semibold text-navy sm:col-span-2">Message<textarea name="message" rows="5" required placeholder="Écrivez votre message ici…" class="fld resize-none"></textarea></label>
+      <button type="submit" class="rounded-full bg-navy px-8 py-4 font-bold text-white shadow-lg shadow-navy/20 transition hover:-translate-y-0.5 hover:bg-vita hover:shadow-xl hover:shadow-vita/30 active:translate-y-0 sm:col-span-2 sm:justify-self-start">Envoyer le message</button>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<footer class="bg-navy-900 text-white/80">
+  <div class="mx-auto grid max-w-6xl gap-8 px-5 py-14 sm:px-6 md:grid-cols-3">
+    <div>
+      <p class="font-display text-2xl font-semibold text-white">UIR Nutrition</p>
+      <p class="mt-2 text-sm leading-relaxed">Le club étudiant de nutrition de l’Université Internationale de Rabat.</p>
+    </div>
+    <div class="text-sm leading-relaxed">
+      <p class="font-bold text-white">Direction de la Vie Étudiante</p>
+      <!-- À REMPLACER par le texte officiel des mentions UIR si nécessaire -->
+      <p class="mt-2">UIR Nutrition est un club étudiant de l’Université Internationale de Rabat, rattaché à la Direction de la Vie Étudiante. Les contenus de ce portail sont à visée éducative et ne remplacent pas un avis médical.</p>
+    </div>
+    <div>
+      <p class="font-bold text-white">Suivez le club</p>
+      <!-- À REMPLACER par l’URL réelle du compte Instagram du club -->
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener" class="mt-3 inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-3 font-semibold text-white ring-1 ring-white/25 transition hover:bg-vita">
+        <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+        Instagram
+      </a>
+    </div>
+  </div>
+  <p class="border-t border-white/10 px-5 py-5 text-center text-xs text-white/60">© <span id="yr">2026</span> Université Internationale de Rabat – Direction de la Vie Étudiante. Tous droits réservés.</p>
+</footer>
+
+<script>
+const $=s=>document.querySelector(s);
+
+/* Icônes (style trait) */
+const P={
+  heart:'<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
+  pulse:'<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>',
+  globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  zap:'<path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/>',
+  leaf:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+  drop:'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
+  next:'<path d="M5 12h14M13 6l6 6-6 6"/>'
+};
+const ic=(k,c='h-6 w-6')=>`<svg viewBox="0 0 24 24" class="${c}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${P[k]}</svg>`;
+
+/* Missions */
+$('#missionGrid').innerHTML=[
+  ['heart','Éducation & Santé','Sensibilisation à l’alimentation équilibrée et à la prévention sanitaire au quotidien sur le campus.'],
+  ['pulse','Nutrition & Sport','Synergie et ateliers pratiques en partenariat avec les clubs sportifs de l’UIR.'],
+  ['globe','Enjeux Continentaux','Réflexion, conférences et sensibilisation sur la sécurité et l’insécurité alimentaire en Afrique.']
+].map(([k,t,d])=>`<article class="cardx group p-8"><span class="grid h-14 w-14 place-items-center rounded-2xl bg-navy text-vita-400 transition group-hover:bg-vita group-hover:text-white">${ic(k,'h-7 w-7')}</span><h3 class="mt-6 font-display text-2xl font-semibold text-navy">${t}</h3><p class="mt-3 leading-relaxed text-slate-600">${d}</p></article>`).join('');
+
+/* Trombinoscope : photo attendue dans assets/equipe/<nom>.jpg (ex. hami.jpg), sinon initiales */
+$('#team').innerHTML=[
+  ['Meryem','LAZRAK','Mentor','Enseignante-chercheuse / Encadrante pédagogique','Pr. '],
+  ['Salaheddine','HAMI','Président'],
+  ['Wafae','GUEROUI','Vice-Présidente'],
+  ['Asmae','LAKHYARI','Secrétaire Générale'],
+  ['Isabella','NTABALA','Trésorière'],
+  ['Maryem','YAZANE','Responsable Communication']
+].map(([f,l,r,s='',t=''])=>`<li class="cardx p-5 text-center sm:p-7"><img src="assets/equipe/${l.toLowerCase()}.jpg" alt="Photo de ${f} ${l}" class="av object-cover" data-t="${f[0]+l[0]}" onerror="fb(this,'av ph-av')"><h3 class="mt-5 font-display text-lg font-bold leading-tight text-navy sm:text-xl">${t}${f} ${l}</h3><p class="mt-1.5 text-sm font-bold text-vita">${r}</p>${s&&`<p class="mt-1 text-xs leading-snug text-slate-500">${s}</p>`}</li>`).join('');
+
+/* Fiches conseils (contenu d’attente à remplacer) */
+$('#tipGrid').innerHTML=[
+  ['zap','Nutrition sportive','Adapter son alimentation à l’effort : nos repères pour les étudiants sportifs arrivent bientôt.','from-navy to-navy-700'],
+  ['leaf','Gestion du stress par l’alimentation','Comprendre le lien entre assiette et équilibre émotionnel : cette fiche est en préparation.','from-vita to-emerald-600'],
+  ['drop','Hydratation au quotidien','Bien s’hydrater sur le campus : nos conseils pratiques seront bientôt disponibles.','from-navy-700 to-vita']
+].map(([k,t,d,g])=>`<article class="cardx flex flex-col overflow-hidden"><div class="relative flex h-40 items-end overflow-hidden bg-gradient-to-br ${g} p-5 text-white"><span class="absolute -bottom-10 -right-10 h-36 w-36 rounded-full bg-white/10"></span><span class="absolute right-4 top-4 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold ring-1 ring-white/30">Bientôt</span><span class="relative grid h-12 w-12 place-items-center rounded-2xl bg-white/15 ring-1 ring-white/30">${ic(k)}</span></div><div class="flex flex-1 flex-col p-6"><h3 class="font-display text-2xl font-semibold leading-snug text-navy">${t}</h3><p class="mt-3 flex-1 leading-relaxed text-slate-600">${d}</p><button type="button" class="group mt-6 inline-flex items-center gap-2 self-start rounded-full border border-navy/20 px-5 py-2.5 text-sm font-bold text-navy transition hover:border-navy hover:bg-navy hover:text-white">Lire la suite ${ic('next','h-4 w-4 transition group-hover:translate-x-1')}</button></div></article>`).join('');
+
+$('#yr').textContent=new Date().getFullYear();
+
+/* Onglet actif selon la section affichée */
+const tabs=[...document.querySelectorAll('nav a')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)tabs.forEach(a=>a.hash==='#'+e.target.id?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'))}),{rootMargin:'-40% 0px -55% 0px'});
+document.querySelectorAll('main>section[id]').forEach(s=>io.observe(s));
+</script>
+<script>
+(() => {
+  const URL_SCRIPT = "PASTE_YOUR_EXEC_URL_HERE";   // <-- your Google Apps Script /exec URL
+
+  document.querySelectorAll('form[data-send]').forEach(form => {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      const oldText = btn.textContent;
+      btn.disabled = true; btn.textContent = 'Envoi...';
+
+      const data = new FormData(form);
+      const subject = data.get('_subject') || 'Nouveau message – UIR Nutrition';
+      data.delete('_subject');
+      const content = [...data.entries()]
+        .filter(([k, v]) => v !== '')
+        .map(([k, v]) => `${k} : ${v}`)
+        .join('\n');
+
+      try {
+        await fetch(URL_SCRIPT, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams({ subject, content, reply_to: data.get('email') || '' })
+        });
+        alert('Merci ! Votre message a bien été envoyé.');
+        form.reset();
+        form.closest('dialog')?.close();
+      } catch (err) {
+        console.error(err);
+        alert("Erreur d'envoi, réessayez.");
+      }
+      btn.disabled = false; btn.textContent = oldText;
+    });
+  });
+})();
+</script>
+</body>
+</html>
