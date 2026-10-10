@@ -28,13 +28,16 @@ function fb(i,c){const s=document.createElement('span');s.className=c;s.textCont
 </script>
 <style type="text/tailwindcss">
 @layer components{
-  .ph-logo{@apply grid h-14 w-40 max-w-[46%] place-items-center rounded-xl border border-dashed border-navy/30 bg-snow px-3 text-center text-xs font-semibold leading-tight text-navy/50}
+  .ph-logo{@apply grid h-14 w-40 max-w-full place-items-center rounded-xl border border-dashed border-navy/30 bg-snow px-3 text-center text-xs font-semibold leading-tight text-navy/50}
   .av{@apply mx-auto h-24 w-24 rounded-full ring-4 ring-vita/20 sm:h-28 sm:w-28}
   .ph-av{@apply grid place-items-center bg-gradient-to-br from-navy to-vita font-display text-3xl font-semibold text-white}
   .cardx{@apply rounded-3xl bg-white shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1.5 hover:shadow-lift}
   .tab{@apply block whitespace-nowrap rounded-full px-2.5 py-2 text-[13px] font-semibold text-navy/70 transition hover:text-navy sm:px-6 sm:text-sm}
-  .wk{@apply rounded-full px-4 py-2 text-sm font-semibold text-navy/70 transition hover:text-navy}
+  .day{@apply relative flex h-12 flex-col items-center justify-center rounded-xl text-sm font-bold text-navy transition hover:bg-slot/20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-navy sm:h-16}
+  .off{@apply flex h-12 items-center justify-center rounded-xl bg-navy/[.04] text-sm text-navy/30 sm:h-16}
+  .navbtn{@apply grid h-10 w-10 place-items-center rounded-full bg-navy/5 text-xl font-bold text-navy transition hover:bg-navy hover:text-white disabled:pointer-events-none disabled:opacity-30}
   .slot{@apply min-w-[4.5rem] rounded-xl bg-slot px-4 py-2.5 text-sm font-bold text-navy transition hover:-translate-y-0.5 hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-navy}
+  .opt{@apply flex-1 cursor-pointer rounded-xl border border-navy/20 bg-white px-5 py-3.5 text-center text-sm font-semibold text-navy transition hover:border-navy/40}
   .fld{@apply mt-2 block w-full rounded-xl border border-navy/20 bg-white px-4 py-3.5 text-base font-normal text-navy shadow-sm transition placeholder:text-navy/40 hover:border-navy/40 focus:border-vita focus:outline-none focus:ring-4 focus:ring-vita/25}
 }
 </style>
@@ -44,30 +47,38 @@ function fb(i,c){const s=document.createElement('span');s.className=c;s.textCont
 .view:not(.hidden){animation:up .45s ease backwards}
 .dots{background-image:radial-gradient(rgba(255,255,255,.1) 1px,transparent 1px);background-size:22px 22px}
 nav a[aria-current],nav a[aria-current]:hover{background:#0A2A5E;color:#fff;box-shadow:0 4px 12px -4px rgba(10,42,94,.5)}
-.wk[aria-pressed=true]{background:#0A2A5E;color:#fff}
+.day[aria-pressed=true]{background:#0A2A5E;color:#fff}
+.opt:has(input:checked){background:#0A2A5E;color:#fff;border-color:#0A2A5E}
+.opt:has(input:focus-visible){outline:3px solid #10B981;outline-offset:2px}
 nav ul::-webkit-scrollbar{display:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body class="bg-snow font-sans text-base text-navy/80 antialiased">
 
-<header class="bg-white">
-  <div class="h-1.5 bg-gradient-to-r from-navy to-slot"></div>
-  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-    <!-- Logos (160 × 56 px) : déposez les fichiers dans /assets ou modifiez src -->
-    <img src="assets/logo-uir.png" alt="Logo UIR" width="160" height="56" class="h-14 w-40 max-w-[46%] object-contain object-left" data-t="Logo UIR" onerror="fb(this,'ph-logo')">
-    <img src="assets/logo-uir-nutrition.png" alt="Logo UIR Nutrition" width="160" height="56" class="h-14 w-40 max-w-[46%] object-contain object-right" data-t="Logo UIR Nutrition" onerror="fb(this,'ph-logo')">
-  </div>
-</header>
+<div class="h-1.5 bg-gradient-to-r from-navy to-slot"></div>
 
-<nav aria-label="Navigation principale" class="sticky top-0 z-40 border-b border-navy/10 bg-white/85 backdrop-blur-md">
-  <ul class="mx-auto my-2 flex w-fit max-w-full gap-1 overflow-x-auto rounded-full bg-navy/5 p-1 [scrollbar-width:none]">
-    <li><a href="#accueil" aria-current="page" class="tab">Accueil</a></li>
-    <li><a href="#conseils" class="tab">Conseils</a></li>
-    <li><a href="#rendez-vous" class="tab">Rendez-vous</a></li>
-    <li><a href="#rejoignez-nous" class="tab">Rejoignez-nous</a></li>
-  </ul>
-</nav>
+<!-- EN-TÊTE : dès 1024 px, une seule ligne = logo UIR (gauche) · navigation (centre) · logo UIR Nutrition (droite).
+     Sur mobile : logos en haut, navigation dessous (elle reste collée en haut de l’écran au défilement). -->
+<header class="contents lg:sticky lg:top-0 lg:z-40 lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center lg:gap-6 lg:border-b lg:border-navy/10 lg:bg-white/90 lg:px-8 lg:py-3 lg:backdrop-blur-md">
+  <!-- Logos (160 × 56 px) : déposez les fichiers dans /assets ou modifiez src -->
+  <div class="flex items-center justify-between bg-white px-4 py-3 sm:px-6 lg:contents">
+    <div class="flex flex-1 lg:col-start-1 lg:row-start-1">
+      <img src="assets/logo-uir.png" alt="Logo UIR" width="160" height="56" class="h-14 w-40 max-w-full object-contain object-left" data-t="Logo UIR" onerror="fb(this,'ph-logo')">
+    </div>
+    <div class="flex flex-1 justify-end lg:col-start-3 lg:row-start-1">
+      <img src="assets/logo-uir-nutrition.png" alt="Logo UIR Nutrition" width="160" height="56" class="h-14 w-40 max-w-full object-contain object-right" data-t="Logo UIR Nutrition" onerror="fb(this,'ph-logo')">
+    </div>
+  </div>
+  <nav aria-label="Navigation principale" class="sticky top-0 z-40 border-y border-navy/10 bg-white/90 backdrop-blur-md lg:static lg:col-start-2 lg:row-start-1 lg:border-0 lg:bg-transparent lg:backdrop-blur-none">
+    <ul class="mx-auto my-2 flex w-fit max-w-full gap-1 overflow-x-auto rounded-full bg-navy/5 p-1 [scrollbar-width:none] lg:my-0">
+      <li><a href="#accueil" aria-current="page" class="tab">Accueil</a></li>
+      <li><a href="#conseils" class="tab">Conseils</a></li>
+      <li><a href="#rendez-vous" class="tab">Rendez-vous</a></li>
+      <li><a href="#rejoignez-nous" class="tab">Rejoignez-nous</a></li>
+    </ul>
+  </nav>
+</header>
 
 <main>
 
@@ -120,6 +131,62 @@ nav ul::-webkit-scrollbar{display:none}
   <div class="mx-auto max-w-6xl">
     <h2 class="font-display text-3xl font-semibold text-navy sm:text-5xl">Conseils</h2>
     <p class="mt-4 max-w-2xl text-lg text-navy/70">Des fiches pratiques pour mieux manger, mieux bouger et prendre soin de sa santé au quotidien.</p>
+    <!-- ÉVALUEZ VOS BESOINS : calculateur (équation de Mifflin-St Jeor) -->
+    <div id="besoins" class="mt-10 rounded-3xl bg-white p-6 shadow-soft ring-1 ring-navy/5 sm:p-8 lg:p-10">
+      <h3 class="font-display text-2xl font-semibold text-navy sm:text-3xl">Évaluez vos besoins</h3>
+      <p class="mt-2 max-w-2xl text-navy/70">Estimez votre métabolisme de base et votre dépense énergétique journalière grâce à l’équation de Mifflin-St Jeor.</p>
+      <form id="calc" class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <fieldset>
+          <legend class="text-sm font-semibold text-navy">Sexe</legend>
+          <div class="mt-2 flex gap-2">
+            <label class="opt"><input type="radio" name="sexe" value="Homme" required class="sr-only">Homme</label>
+            <label class="opt"><input type="radio" name="sexe" value="Femme" class="sr-only">Femme</label>
+          </div>
+        </fieldset>
+        <label class="block text-sm font-semibold text-navy">Âge (années)<input name="age" type="number" inputmode="numeric" min="15" max="100" required class="fld"></label>
+        <label class="block text-sm font-semibold text-navy">Poids (kg)<input name="poids" type="number" inputmode="decimal" min="30" max="250" step="0.1" required class="fld"></label>
+        <label class="block text-sm font-semibold text-navy">Taille (cm)<input name="taille" type="number" inputmode="numeric" min="120" max="230" required class="fld"></label>
+        <div class="sm:col-span-2 lg:col-span-4">
+          <label class="block text-sm font-semibold text-navy">Facteur d’activité
+            <select name="act" required class="fld">
+              <option value="" disabled selected>Choisissez votre niveau d’activité</option>
+              <option value="1.2">Sédentaire (× 1,2)</option>
+              <option value="1.375">Légèrement actif (× 1,375)</option>
+              <option value="1.55">Modérément actif (× 1,55)</option>
+              <option value="1.725">Très actif (× 1,725)</option>
+              <option value="1.9">Extrêmement actif (× 1,9)</option>
+            </select>
+          </label>
+          <p class="mt-2 text-xs text-navy/70">Si vous ne connaissez pas votre niveau d’activité, découvrez-le via le questionnaire GPAQ (PDF à télécharger prochainement).</p>
+        </div>
+        <button type="submit" class="rounded-full bg-navy px-8 py-3.5 font-bold text-white shadow-lg shadow-navy/20 transition hover:-translate-y-0.5 hover:bg-slot hover:text-navy sm:col-span-2 lg:col-span-4 lg:justify-self-start">Calculer</button>
+      </form>
+
+      <!-- Résultats : affichés après le clic sur « Calculer » -->
+      <div id="res" class="mt-8 hidden border-t border-navy/10 pt-8">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div class="rounded-2xl bg-navy p-6 text-white"><p class="text-sm font-semibold text-white/80">Métabolisme de Base (MB)</p><p class="mt-2 font-display text-5xl font-semibold"><span id="mb"></span> <span class="text-base font-normal text-white/80">kcal/jour</span></p></div>
+          <div class="rounded-2xl bg-slot p-6 text-navy"><p class="text-sm font-semibold">Dépense Énergétique Journalière Totale (TDEE)</p><p class="mt-2 font-display text-5xl font-semibold"><span id="tdee"></span> <span class="text-base font-normal">kcal/jour</span></p></div>
+        </div>
+        <p class="mt-3 text-xs text-navy/70">Estimations indicatives, en kcal par jour.</p>
+        <div class="mt-6 rounded-2xl border-2 border-slot bg-slot/10 p-5">
+          <p class="font-semibold text-navy">Pour de meilleurs résultats et pour mieux interpréter votre composition corporelle, prenez rendez-vous avec nous ci-dessous.</p>
+          <a href="#rendez-vous" class="mt-4 inline-block rounded-full bg-navy px-6 py-3 font-bold text-white transition hover:bg-slot hover:text-navy">Prendre rendez-vous</a>
+        </div>
+        <!-- COLLECTE POUR LA RECHERCHE : méthode POST. Remplacez VOTRE_ID_RECHERCHE par votre identifiant Formspree. -->
+        <form data-send id="envoi" class="mt-6 rounded-2xl bg-snow p-5 ring-1 ring-navy/10 sm:p-6">
+          <input type="hidden" name="_subject" value="Résultats du calculateur – recherche UIR Nutrition">
+          <div id="champs"></div><!-- rempli automatiquement avec les résultats calculés -->
+          <div class="grid gap-4 sm:grid-cols-2">
+            <label class="block text-sm font-semibold text-navy">Nom <span class="ml-1 rounded-full bg-navy/10 px-2 py-0.5 text-xs font-bold">Optionnel</span><input name="nom" type="text" autocomplete="off" class="fld"></label>
+            <label class="block text-sm font-semibold text-navy">Prénom <span class="ml-1 rounded-full bg-navy/10 px-2 py-0.5 text-xs font-bold">Optionnel</span><input name="prenom" type="text" autocomplete="off" class="fld"></label>
+          </div>
+          <p class="mt-3 text-xs text-navy/70">Nom et prénom sont facultatifs : laissez-les vides pour participer de façon anonyme.</p>
+          <button type="submit" class="mt-4 w-full rounded-full bg-navy px-8 py-3.5 font-bold text-white shadow-lg shadow-navy/20 transition hover:-translate-y-0.5 hover:bg-slot hover:text-navy sm:w-auto">Envoyer mes résultats au club (Anonyme)</button>
+        </form>
+      </div>
+    </div>
+
     <div id="tipGrid" class="mt-12 grid gap-6 md:grid-cols-3"></div>
   </div>
 </section>
@@ -129,16 +196,33 @@ nav ul::-webkit-scrollbar{display:none}
   <div class="mx-auto max-w-6xl">
     <h2 class="font-display text-3xl font-semibold text-navy sm:text-5xl">Prise de Rendez-vous</h2>
     <p class="mt-4 max-w-3xl text-lg leading-relaxed text-navy/70">Ces consultations permettent de réaliser une évaluation nutritionnelle : prise des mesures anthropométriques (composition corporelle, IMC) et questionnaire de base, afin de vous fournir des conseils personnalisés.</p>
-    <div class="mt-10 rounded-3xl bg-white p-5 shadow-soft ring-1 ring-navy/5 sm:p-8">
-      <div class="flex flex-wrap items-center justify-between gap-4">
-        <h3 class="font-display text-2xl font-semibold text-navy">Choisissez un créneau</h3>
-        <div id="semaines" role="group" aria-label="Semaine affichée" class="flex rounded-full bg-navy/5 p-1">
-          <button type="button" data-w="0" class="wk">Cette semaine</button>
-          <button type="button" data-w="1" class="wk">Semaine suivante</button>
+    <div class="mt-10 grid gap-6 lg:grid-cols-5">
+      <!-- CALENDRIER -->
+      <div class="rounded-3xl bg-white p-5 shadow-soft ring-1 ring-navy/5 sm:p-8 lg:col-span-3">
+        <div class="flex items-center justify-between gap-3">
+          <h3 id="moisTitre" class="font-display text-2xl font-semibold capitalize text-navy sm:text-3xl"></h3>
+          <div class="flex gap-2">
+            <button type="button" id="prec" aria-label="Mois précédent" class="navbtn">‹</button>
+            <button type="button" id="suiv" aria-label="Mois suivant" class="navbtn">›</button>
+          </div>
         </div>
+        <div class="mt-6 grid grid-cols-7 gap-1 text-center text-xs font-bold uppercase tracking-wide text-navy/50 sm:gap-2">
+          <span>Lun</span><span>Mar</span><span>Mer</span><span>Jeu</span><span>Ven</span><span>Sam</span><span>Dim</span>
+        </div>
+        <div id="cal" class="mt-2 grid grid-cols-7 gap-1 sm:gap-2"></div>
+        <p class="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-navy/70">
+          <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-slot"></span>Créneaux libres</span>
+          <span class="flex items-center gap-2"><span class="h-3 w-3 rounded bg-navy"></span>Jour choisi</span>
+          <span class="flex items-center gap-2"><span class="h-3 w-3 rounded bg-navy/10"></span>Indisponible</span>
+        </p>
       </div>
-      <p class="mt-3 flex items-center gap-2 text-sm text-navy/70"><span class="h-3 w-3 rounded bg-slot"></span>Créneau disponible : cliquez pour réserver.</p>
-      <div id="agenda" class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(10.5rem,1fr))] gap-3"></div>
+      <!-- HORAIRES DU JOUR CHOISI -->
+      <div id="horaires" class="scroll-mt-24 rounded-3xl bg-white p-5 shadow-soft ring-1 ring-navy/5 sm:p-8 lg:col-span-2">
+        <p class="text-xs font-bold uppercase tracking-wide text-navy/50">Horaires disponibles</p>
+        <h3 id="jourTitre" class="mt-2 font-display text-2xl font-semibold capitalize text-navy"></h3>
+        <div id="agenda" class="mt-6 flex flex-wrap gap-2"></div>
+        <p class="mt-6 text-xs text-navy/60">Un seul rendez-vous à la fois par étudiant.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -166,6 +250,7 @@ nav ul::-webkit-scrollbar{display:none}
 </section>
 
 </main>
+
 
 <!-- FENÊTRE DE RÉSERVATION : s’ouvre au clic sur un créneau vert -->
 <dialog id="rdv" class="m-auto max-h-[92vh] w-[min(92vw,34rem)] overflow-y-auto rounded-3xl bg-white p-0 text-navy shadow-lift backdrop:bg-navy/70 backdrop:backdrop-blur-sm">
@@ -211,6 +296,7 @@ nav ul::-webkit-scrollbar{display:none}
 </footer>
 
 <script>
+const URL_SCRIPT = "https://script.google.com/macros/s/AKfycbwItZFjbwL4e8ZjWLoMT_lZtsLm23mArHcugrW0_TCUKLNtMRvMEsQGA8tyJGHT6s_I/exec";   // <-- votre URL Google Apps Script (finit par /exec)
 const $=s=>document.querySelector(s);
 
 /* Icônes (style trait) */
@@ -265,6 +351,23 @@ function route(){
 }
 addEventListener('hashchange',route);route();
 
+/* ===== CALCULATEUR : équation de Mifflin-St Jeor =====
+   MB (Homme) = 10 × poids(kg) + 6,25 × taille(cm) − 5 × âge + 5
+   MB (Femme) = 10 × poids(kg) + 6,25 × taille(cm) − 5 × âge − 161
+   TDEE       = MB × facteur d’activité (les multiplicateurs sont les value="" des <option> du formulaire) */
+$('#calc').addEventListener('submit',e=>{
+  e.preventDefault();                                      // pas de rechargement de la page
+  const v=e.target.elements,age=+v.age.value,kg=+v.poids.value,cm=+v.taille.value,act=+v.act.value,sexe=v.sexe.value;
+  const mb=Math.round(10*kg+6.25*cm-5*age+(sexe==='Homme'?5:-161)),tdee=Math.round(mb*act);
+  $('#mb').textContent=mb.toLocaleString('fr-FR');
+  $('#tdee').textContent=tdee.toLocaleString('fr-FR');
+  /* Les résultats sont ajoutés au formulaire d’envoi (Formspree) sous forme de champs cachés */
+  $('#champs').innerHTML=Object.entries({sexe,age_ans:age,poids_kg:kg,taille_cm:cm,facteur_activite:v.act.selectedOptions[0].text,MB_kcal:mb,TDEE_kcal:tdee})
+    .map(([k,x])=>`<input type="hidden" name="${k}" value="${x}">`).join('');
+  $('#res').classList.remove('hidden');
+  $('#res').scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+
 /* ===== CALENDRIER DES RENDEZ-VOUS =====
    Le bureau ne modifie QUE les 3 blocs ci-dessous : DISPO, FERMES, PRIS. */
 
@@ -282,52 +385,146 @@ const DISPO={
 };
 // 2) Jours entièrement fermés (jour férié, absence…) : 'AAAA-MM-JJ'
 const FERMES=['2026-11-06','2026-11-18'];
+const EXCEPTIONS={
+  '2026-10-12':['10:00'],                    // lundi 12 octobre : seulement 10:00
+  '2026-10-13':['09:30','10:00'],            // mardi 13 octobre
+  '2026-10-17':['10:00','11:00','12:00']     // samedi 17 octobre
+};
 // 3) Créneaux déjà réservés : ajoutez-les ici après confirmation (ils sont grisés) : 'AAAA-MM-JJ HH:MM'
 //    Le site est statique : un créneau reste cliquable tant qu’il n’est pas listé ici.
-const PRIS=['2026-10-12 10:00'];
+const PRIS=[];
+// 4) Combien de jours à l’avance on peut réserver (ex. 45 = environ 6 semaines)
+const JOURS_A_L_AVANCE=45;
+let PRISAUTO=[];   // rempli automatiquement depuis Google Sheets
 
 /* --- Affichage : inutile d’y toucher --- */
 const JOURS=['dimanche','lundi','mardi','mercredi','jeudi','vendredi','samedi'];
 const iso=d=>d.toLocaleDateString('sv-SE');              // date locale au format AAAA-MM-JJ
-let sem=0;                                              // 0 = cette semaine, 1 = semaine suivante
-function afficher(){
-  const auj=new Date(),lun=new Date();
-  auj.setHours(0,0,0,0);lun.setHours(0,0,0,0);
-  lun.setDate(lun.getDate()-((lun.getDay()+6)%7)+7*sem);     // lundi de la semaine affichée
-  document.querySelectorAll('#semaines button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.w===sem));
-  const jours=[];
-  for(let i=0;i<7;i++){
-    const d=new Date(lun);d.setDate(lun.getDate()+i);
-    const nom=JOURS[d.getDay()],k=iso(d);
-    if(!DISPO[nom]||d<auj)continue;                          // jour non proposé ou déjà passé
-    const h=FERMES.includes(k)?'':DISPO[nom].map(t=>{
-      if(new Date(`${k}T${t}`)<new Date())return '';         // heure déjà passée aujourd’hui
-      return PRIS.includes(`${k} ${t}`)
-        ?`<span class="rounded-xl bg-navy/5 px-4 py-2.5 text-sm font-semibold text-navy/40 line-through" title="Complet">${t}</span>`
-        :`<button type="button" class="slot" data-d="${k}" data-t="${t}">${t}</button>`;
-    }).join('');
-    jours.push(`<div class="rounded-2xl bg-snow p-4 ring-1 ring-navy/10"><p class="font-display text-lg font-semibold capitalize text-navy">${nom} <span class="text-sm font-normal normal-case text-navy/70">${d.toLocaleDateString('fr-FR',{day:'numeric',month:'short'})}</span></p><div class="mt-3 flex flex-wrap gap-2">${h||'<p class="text-sm text-navy/70">Aucun créneau</p>'}</div></div>`);
-  }
-  $('#agenda').innerHTML=jours.join('')||'<p class="text-navy/70">Aucun créneau cette semaine.</p>';
+const pris=(k,t)=>PRIS.includes(`${k} ${t}`)||PRISAUTO.includes(`${k} ${t}`);
+const minuit=d=>{const x=new Date(d);x.setHours(0,0,0,0);return x};
+
+// horaires encore libres pour un jour donné (liste vide = jour grisé)
+function libres(d){
+  const k=iso(d),nom=JOURS[d.getDay()],auj=minuit(new Date()),max=minuit(new Date());
+  max.setDate(max.getDate()+JOURS_A_L_AVANCE);
+  const H=EXCEPTIONS[k]||DISPO[nom];
+  if(!H||FERMES.includes(k)||d<auj||d>max)return [];
+  return H.filter(t=>new Date(`${k}T${t}`)>=new Date()&&!pris(k,t));
 }
-$('#semaines').addEventListener('click',e=>{if(e.target.dataset.w){sem=+e.target.dataset.w;afficher()}});
+function premierJourLibre(){
+  const d=minuit(new Date());
+  for(let i=0;i<=JOURS_A_L_AVANCE;i++){if(libres(d).length)return iso(d);d.setDate(d.getDate()+1)}
+  return null;
+}
+
+let mois=minuit(new Date());mois.setDate(1);             // mois affiché
+let choisi=null,initial=true;                            // jour choisi (AAAA-MM-JJ)
+
+function afficherCal(){
+  const y=mois.getFullYear(),m=mois.getMonth(),auj=iso(new Date());
+  $('#moisTitre').textContent=mois.toLocaleDateString('fr-FR',{month:'long',year:'numeric'});
+  const decal=(new Date(y,m,1).getDay()+6)%7,nbj=new Date(y,m+1,0).getDate();
+  let h='<span></span>'.repeat(decal);
+  for(let j=1;j<=nbj;j++){
+    const d=new Date(y,m,j),k=iso(d),n=libres(d).length,ring=k===auj?' ring-2 ring-navy/30':'';
+    h+=n
+      ?`<button type="button" class="day${ring}" data-j="${k}" aria-pressed="${k===choisi}" aria-label="${d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})}, ${n} créneau${n>1?'x':''} libre${n>1?'s':''}"><span>${j}</span><span class="mt-1 h-1.5 w-1.5 rounded-full bg-slot"></span></button>`
+      :`<span class="off${ring}">${j}</span>`;
+  }
+  $('#cal').innerHTML=h;
+  const debut=minuit(new Date());debut.setDate(1);
+  const fin=minuit(new Date());fin.setDate(fin.getDate()+JOURS_A_L_AVANCE);fin.setDate(1);
+  $('#prec').disabled=mois<=debut;
+  $('#suiv').disabled=mois>=fin;
+}
+
+function afficherJour(){
+  const box=$('#agenda');
+  if(!choisi){
+    $('#jourTitre').textContent='Aucun créneau';
+    box.innerHTML='<p class="text-navy/70">Aucun créneau libre pour le moment. Revenez bientôt.</p>';return;
+  }
+  const d=new Date(choisi+'T00:00'),nom=JOURS[d.getDay()];
+  $('#jourTitre').textContent=d.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
+  const h=(EXCEPTIONS[choisi]||DISPO[nom]||[]).filter(t=>new Date(`${choisi}T${t}`)>=new Date()).map(t=>pris(choisi,t)
+    ?`<span class="rounded-xl bg-navy/5 px-4 py-2.5 text-sm font-semibold text-navy/40 line-through" title="Complet">${t}</span>`
+    :`<button type="button" class="slot" data-d="${choisi}" data-t="${t}">${t}</button>`).join('');
+  box.innerHTML=h||'<p class="text-navy/70">Aucun créneau ce jour-là.</p>';
+}
+
+function afficher(){
+  if(initial){choisi=premierJourLibre();initial=false;if(choisi){mois=new Date(choisi+'T00:00');mois.setDate(1)}}
+  afficherCal();afficherJour();
+}
+$('#cal').addEventListener('click',e=>{
+  const b=e.target.closest('.day');if(!b)return;
+  choisi=b.dataset.j;afficherCal();afficherJour();
+  if(matchMedia('(max-width:1023px)').matches)$('#horaires').scrollIntoView({behavior:'smooth',block:'start'});
+});
+$('#prec').onclick=()=>{mois.setMonth(mois.getMonth()-1);afficherCal()};
+$('#suiv').onclick=()=>{mois.setMonth(mois.getMonth()+1);afficherCal()};
 
 /* Clic sur un créneau vert : ouverture du formulaire de réservation */
 const dlg=$('#rdv');
 $('#agenda').addEventListener('click',e=>{
   const b=e.target.closest('.slot');if(!b)return;
+  const deja=monRdv();
+  if(deja){window.toast('Vous avez déjà un rendez-vous : '+deja.txt+'. Vous pourrez en reprendre un après.',false);return}
   const txt=new Date(`${b.dataset.d}T${b.dataset.t}`).toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'})+' à '+b.dataset.t;
   $('#choix').textContent=txt;
   $('#creneau').value=`${txt} [${b.dataset.d}]`;             // envoyé au bureau avec le formulaire
+  dlg.dataset.slot=`${b.dataset.d} ${b.dataset.t}`;           // clé du créneau, vérifiée par le script
   dlg.showModal();
 });
 $('#fermer').onclick=()=>dlg.close();
 dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});   // clic en dehors du formulaire = fermer
 afficher();
+
+/* Créneaux déjà pris : lus depuis Google Sheets (le script ne renvoie que les créneaux, jamais de données perso) */
+/* Un seul rendez-vous par appareil tant qu’il n’est pas passé (ou annulé par le club) */
+function monRdv(){
+  try{
+    const m=JSON.parse(localStorage.getItem('rdv')||'null');
+    if(!m)return null;
+    const n=new Date();
+    if(m.slot<`${iso(n)} ${n.toTimeString().slice(0,5)}`){localStorage.removeItem('rdv');return null}
+    return m;
+  }catch(e){return null}
+}
+async function chargerPris(){
+  if(!URL_SCRIPT.includes('/exec'))return;
+  try{
+    const r=await fetch(URL_SCRIPT+'?action=taken');
+    const j=await r.json();
+    PRISAUTO=j.taken||[];afficher();
+    const m=monRdv();if(m&&!PRISAUTO.includes(m.slot)){try{localStorage.removeItem('rdv')}catch(e){}}   // annulé par le club : on libère l’appareil
+  }catch(e){console.warn('Lecture des créneaux impossible',e)}
+}
+chargerPris();
+addEventListener('hashchange',()=>{if(location.hash==='#rendez-vous')chargerPris()});
 </script>
 <script>
 (() => {
-  const URL_SCRIPT = "https://ismail-hami.github.io/Club/#rendez-vous";   // <-- your Google Apps Script /exec URL
+  /* Petite notification en haut de la page */
+  function toast(msg, ok = true) {
+    const t = document.createElement('div');
+    t.setAttribute('role', 'status');
+    t.innerHTML = '<span style="font-size:18px;color:' + (ok ? '#10B981' : '#fff') + ';">' + (ok ? '✓' : '✕') + '</span>' + msg;
+    t.style.cssText =
+      'position:fixed;top:20px;left:50%;transform:translate(-50%,-24px);opacity:0;z-index:99999;' +
+      'display:flex;align-items:center;gap:10px;padding:14px 24px;border-radius:999px;' +
+      'font:600 15px Figtree,system-ui,sans-serif;color:#fff;max-width:92vw;' +
+      'box-shadow:0 12px 32px -12px rgba(10,42,94,.6);transition:all .35s ease;' +
+      'background:' + (ok ? '#0A2A5E' : '#B91C1C') + ';';
+    document.body.appendChild(t);
+    requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translate(-50%,0)'; });
+    setTimeout(() => {
+      t.style.opacity = '0'; t.style.transform = 'translate(-50%,-24px)';
+      setTimeout(() => t.remove(), 400);
+    }, 4000);
+  }
+
+  window.toast = toast;
 
   document.querySelectorAll('form[data-send]').forEach(form => {
     form.addEventListener('submit', async e => {
@@ -336,6 +533,8 @@ afficher();
       const oldText = btn.textContent;
       btn.disabled = true; btn.textContent = 'Envoi...';
 
+      const dialog = form.closest('dialog');
+      const slot = dialog ? (dialog.dataset.slot || '') : '';      // seulement pour un rendez-vous
       const data = new FormData(form);
       const subject = data.get('_subject') || 'Nouveau message – UIR Nutrition';
       data.delete('_subject');
@@ -343,19 +542,37 @@ afficher();
         .filter(([k, v]) => v !== '')
         .map(([k, v]) => `${k} : ${v}`)
         .join('\n');
+      const body = new URLSearchParams({ subject, content, reply_to: data.get('email') || '', slot });
 
       try {
-        await fetch(URL_SCRIPT, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: new URLSearchParams({ subject, content, reply_to: data.get('email') || '' })
-        });
-        alert('Merci ! Votre message a bien été envoyé.');
-        form.reset();
-        form.closest('dialog')?.close();
+        if (slot) {
+          // Rendez-vous : on lit la réponse du script (créneau libre ou déjà pris)
+          const res = await fetch(URL_SCRIPT, { method: 'POST', body });
+          const out = await res.json();
+          if (out.status === 'limit') {
+            dialog.close();
+            toast('Vous avez déjà un rendez-vous : ' + out.creneau + '. Vous pourrez en reprendre un après.', false);
+          } else if (out.status === 'taken') {
+            dialog.close();
+            toast('Ce créneau vient d’être réservé. Choisissez-en un autre.', false);
+            chargerPris();
+          } else if (out.status === 'ok') {
+            try { localStorage.setItem('rdv', JSON.stringify({ slot, txt: document.getElementById('choix').textContent })); } catch (err) {}
+            form.reset(); dialog.close();
+            toast('Rendez-vous réservé avec succès');
+            chargerPris();
+          } else {
+            throw new Error('Réponse inattendue');
+          }
+        } else {
+          // Contact / calculateur : simple envoi
+          await fetch(URL_SCRIPT, { method: 'POST', mode: 'no-cors', body });
+          form.reset();
+          toast(form.id==='envoi'?'Résultats envoyés, merci !':'Message envoyé avec succès');
+        }
       } catch (err) {
         console.error(err);
-        alert("Erreur d'envoi, réessayez.");
+        toast("Erreur d'envoi, réessayez", false);
       }
       btn.disabled = false; btn.textContent = oldText;
     });
